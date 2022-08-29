@@ -1,62 +1,67 @@
 const fs = require('fs');
 const path = require('path');
 
-module exports = app => {
+module.exports = app => {
 
-    // notes variable
+    // Setup notes variable
+    fs.readFile("db/db.json","utf8", (err, data) => {
 
-    fs.readFile("db/db.json", "utf8", (err, data) => {
         if (err) throw err;
 
         var notes = JSON.parse(data);
 
-        // API routes note get routes
-        app.get("/api/notes", function(req, res) {
-
-            // return all saved notes as JSON from db.json file.
-            res.json(notes);
+        // API ROUTES
+        // ========================================================
     
+        // Setup the /api/notes get route
+        app.get("/api/notes", function(req, res) {
+            // Read the db.json file and return all saved notes as JSON.
+            res.json(notes);
         });
 
-        // notes post route
+        // Setup the /api/notes post route
         app.post("/api/notes", function(req, res) {
-            // new note added to db.json, then returns the new note
+            // Receives a new note, adds it to db.json, then returns the new note
             let newNote = req.body;
             notes.push(newNote);
             updateDb();
-            return console.log("Added new note: " +newNote.title);
+            return console.log("Added new note: "+newNote.title);
         });
 
-        // retrieves a note with id
-        app.get("/api/notes/:id", function(req, res) {
-            // receives json for notes array with given id
-            res.json(notes[req.parmas.id]);
+        // Retrieves a note with specific id
+        app.get("/api/notes/:id", function(req,res) {
+            // display json for the notes array indices of the provided id
+            res.json(notes[req.params.id]);
         });
 
-        // deletes notes with specific id.
+        // Deletes a note with specific id
         app.delete("/api/notes/:id", function(req, res) {
-            notes.splice(req.parmas.id, 1);
+            notes.splice(req.params.id, 1);
             updateDb();
-            console.log("Deleted notes with id" +req.parmas.id);
+            console.log("Deleted note with id "+req.params.id);
         });
 
-        // display notes.html when notes is accessed
-        app.get('/notes', function(req, res) {
-            res.sendFile(path.join(__dirname, "../public/index/html"));
+        // VIEW ROUTES
+        // ========================================================
 
+        // Display notes.html when /notes is accessed
+        app.get('/notes', function(req,res) {
+            res.sendFile(path.join(__dirname, "../public/notes.html"));
         });
-        // display index.html when other routes are accessed
-        app.get('*', function(req, res) {
+        
+        // Display index.html when all other routes are accessed
+        app.get('*', function(req,res) {
             res.sendFile(path.join(__dirname, "../public/index.html"));
         });
 
-        // json file is updated when a note is added or deleted
+        //updates the json file whenever a note is added or deleted
         function updateDb() {
-            fs.writeFile("db/db.json", JSON.stringify(notes. '\t'),err =>{
+            fs.writeFile("db/db.json",JSON.stringify(notes,'\t'),err => {
                 if (err) throw err;
                 return true;
             });
         }
 
     });
+
 }
