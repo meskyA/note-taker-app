@@ -57,25 +57,24 @@ const deleteNote = function(id) {
 };
 // If an active note, display it, if not render empty input
 const renderActiveNote = function() {
-  hide(saveNoteBtn);
+  $saveNoteBtn.hide();
 
-  if (activeNote.id) {
-    noteTitle.setAttribute('readonly', true);
-    noteText.setAttribute('readonly', true);
-    noteTitle.value = activeNote.title;
-    noteText.value = activeNote.text;
+  if (typeof activeNote.id === "number") {
+    $noteTitle.attr("readonly", true);
+    $noteText.attr("readonly", true);
+    $noteTitle.val(activeNote.title);
+    $noteText.val(activeNote.text);
   } else {
-    noteTitle.removeAttribute('readonly');
-    noteText.removeAttribute('readonly');
-    noteTitle.value = '';
-    noteText.value = '';
+    $noteTitle.attr("readonly", false);
+    $noteText.attr("readonly", false);
+    $noteTitle.val("");
+    $noteText.val("");
   }
 };
-
 const handleNoteSave = function() {
   const newNote = {
-    title: noteTitle.val(),
-    text: noteText.value(),
+    title: $noteTitle.val(),
+    text: $noteText.value(),
   };
   saveNote(newNote);
   // then(() => {
