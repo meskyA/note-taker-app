@@ -74,7 +74,7 @@ const renderActiveNote = function() {
 const handleNoteSave = function() {
   const newNote = {
     title: $noteTitle.val(),
-    text: $noteText.value(),
+    text: $noteText.val(),
   };
   saveNote(newNote);
   // then(() => {
