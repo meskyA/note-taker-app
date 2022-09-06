@@ -18,9 +18,9 @@ The Note Taker app is live on Heroku for you to use as well.
 
 
 
-![Screen-shot](/11-Express/02-Challenge/note-taker-app/Assets/Screen-Shot-note-taker-1.png)
-![Screen-shot](/11-Express/02-Challenge/note-taker-app/Assets/Screen-Shot-note-taker-2.png)
-![Screen-shot](/11-Express/02-Challenge/note-taker-app/Assets/Screen-Shot-note-taker-3.png)
+![Screen-shot](/Assets/Screen-Shot-note-taker-1.png)
+![Screen-shot](Assets/Screen-Shot-note-taker-2.png)
+![Screen-shot](Assets/Screen-Shot-note-taker-3.png)
 
 
 [video](https://amazing-notes-2022.herokuapp.com/)
